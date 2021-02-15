@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Shared\Persistence\Doctrine\Types;
 
-use App\Domain\Shared\Exception\DateTimeException;
-use App\Domain\Shared\ValueObject\DateTime;
+use App\Shared\Domain\Exception\DateTimeException;
+use App\Shared\Domain\ValueObject\DateTime;
 use DateTimeImmutable;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Platforms\MySqlPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\DateTimeImmutableType;
 
@@ -21,6 +22,9 @@ class DateTimeType extends DateTimeImmutableType
      */
     public function getSQLDeclaration(array $column, AbstractPlatform $platform)
     {
+        if ($platform instanceof MySqlPlatform) {
+            return 'DATETIME(6)';
+        }
         return $platform->getDateTimeTypeDeclarationSQL($column);
     }
 
@@ -35,12 +39,12 @@ class DateTimeType extends DateTimeImmutableType
             return null;
         }
 
-        if ($value instanceof DateTime) {
-            return $value->format($platform->getDateTimeFormatString());
-        }
-
-        if ($value instanceof DateTimeImmutable) {
-            return $value->format($platform->getDateTimeFormatString());
+        if ($value instanceof DateTime || $value instanceof DateTimeImmutable) {
+            $format = $platform->getDateTimeFormatString();
+            if ($platform instanceof MySqlPlatform) {
+                $format .= ".u";
+            }
+            return $value->format($format);
         }
 
         throw ConversionException::conversionFailedInvalidType($value, $this->getName(), ['null', DateTime::class]);

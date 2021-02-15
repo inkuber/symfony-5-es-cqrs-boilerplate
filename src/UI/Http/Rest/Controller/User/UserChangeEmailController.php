@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Controller\User;
 
-use App\Application\Command\CommandBusInterface;
-use App\Application\Command\User\ChangeEmail\ChangeEmailCommand;
-use App\Domain\User\Exception\ForbiddenException;
+use App\Shared\Application\Command\CommandBusInterface;
+use App\Auth\Application\Command\User\ChangeEmail\ChangeEmailCommand;
+use App\Auth\Domain\User\Exception\ForbiddenException;
 use App\UI\Http\Rest\Controller\CommandController;
 use App\UI\Http\Session;
 use Assert\Assertion;
@@ -32,7 +32,7 @@ final class UserChangeEmailController extends CommandController
 
     /**
      * @Route(
-     *     "/users/{uuid}/email",
+     *     "/users/{id}/email",
      *     name="user_change_email",
      *     methods={"POST"}
      * )
@@ -58,7 +58,7 @@ final class UserChangeEmailController extends CommandController
      * )
      *
      * @OA\Parameter(
-     *     name="uuid",
+     *     name="id",
      *     in="path",
      *     @OA\Schema(type="string")
      * )
@@ -70,15 +70,15 @@ final class UserChangeEmailController extends CommandController
      * @throws AssertionFailedException
      * @throws Throwable
      */
-    public function __invoke(string $uuid, Request $request): JsonResponse
+    public function __invoke(string $id, Request $request): JsonResponse
     {
-        $this->validateUuid($uuid);
+        $this->validateUuid($id);
 
         $email = $request->get('email');
 
         Assertion::notNull($email, "Email can\'t be null");
 
-        $command = new ChangeEmailCommand($uuid, $email);
+        $command = new ChangeEmailCommand($id, $email);
 
         $this->handle($command);
 
@@ -87,7 +87,7 @@ final class UserChangeEmailController extends CommandController
 
     private function validateUuid(string $uuid): void
     {
-        if (!$this->session->get()->uuid()->equals(Uuid::fromString($uuid))) {
+        if (!$this->session->get()->id()->equals(Uuid::fromString($uuid))) {
             throw new ForbiddenException();
         }
     }

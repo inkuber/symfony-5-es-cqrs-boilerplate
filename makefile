@@ -8,6 +8,10 @@ ifeq ($(docker-os), windows)
 	endif
 endif
 
+ifneq ("$(wildcard ./docker-compose.own.yml)", "")
+	compose += -f docker-compose.own.yml
+endif
+
 export compose env docker-os
 
 .PHONY: start
@@ -55,9 +59,9 @@ composer-update: ## Update project dependencies
 up: ## spin up environment
 		$(compose) up -d
 
-.PHONY: phpunit
-phpunit: db ## execute project unit tests
-		$(compose) exec -T php sh -lc "php -dpcov.enabled='1' -dpcov.directory=. -dpcov.exclude='~vendor~' ./vendor/bin/phpunit $(conf)"
+.PHONY: codecept
+codecept: db ## execute project unit tests
+		$(compose) exec -T php sh -lc "php -dpcov.enabled='1' -dpcov.directory=. -dpcov.exclude='~vendor~' ./vendor/bin/codecept $(filter-out $@,$(MAKECMDGOALS))"
 
 .PHONY: coverage
 coverage:
@@ -104,7 +108,7 @@ xon: ## activate xdebug simlink
 .PHONY: xoff
 xoff: ## deactivate xdebug
 		$(compose) exec -T php sh -lc 'xoff | true'
-		make s='php workers_events workers_users' stop
+		#make s='php workers_events workers_users' stop
 		make up
 
 .PHONY: sh
@@ -114,6 +118,10 @@ sh: ## gets inside a container, use 's' variable to select a service. make s=php
 .PHONY: logs
 logs: ## look for 's' service logs, make s=php logs
 		$(compose) logs -f $(s)
+
+.PHONY: ps
+ps: ## show container list
+		$(compose) ps
 
 .PHONY: minikube
 minikube:

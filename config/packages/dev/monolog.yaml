@@ -1,11 +1,12 @@
 monolog:
-    channels: ['elasticsearch']
+    channels: ['console']
+    #channels: ['elasticsearch']
     handlers:
-        elasticsearch:
-            type: stream
-            path: "%kernel.logs_dir%/elasticsearch_%kernel.environment%.log"
-            level: debug
-            channels: ["elasticsearch"]
+        #elasticsearch:
+        #    type: stream
+        #    path: "%kernel.logs_dir%/elasticsearch_%kernel.environment%.log"
+        #    level: debug
+        #    channels: ["elasticsearch"]
         main:
             type: stream
             path: "%kernel.logs_dir%/%kernel.environment%.log"

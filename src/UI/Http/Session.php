@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\UI\Http;
 
-use App\Domain\User\Exception\InvalidCredentialsException;
-use App\Infrastructure\User\Auth\Auth;
+use App\Auth\Domain\User\Exception\InvalidCredentialsException;
+use App\Auth\Infrastructure\User\Auth\Auth;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 final class Session

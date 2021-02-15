@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Web\Controller;
 
-use App\Application\Command\CommandBusInterface;
-use App\Application\Command\CommandInterface;
-use App\Application\Query\Collection;
-use App\Application\Query\Item;
-use App\Application\Query\QueryBusInterface;
-use App\Application\Query\QueryInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Shared\Application\Command\CommandBusInterface;
+use App\Shared\Application\Command\CommandInterface;
+use App\Shared\Application\Query\Collection;
+use App\Shared\Application\Query\Item;
+use App\Shared\Application\Query\QueryBusInterface;
+use App\Shared\Application\Query\QueryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 use Twig;
 
-abstract class AbstractRenderController
+abstract class AbstractRenderController extends AbstractController
 {
     private CommandBusInterface $commandBus;
 
@@ -37,11 +38,11 @@ abstract class AbstractRenderController
      * @throws Twig\Error\RuntimeError
      * @throws Twig\Error\SyntaxError
      */
-    protected function render(string $view, array $parameters = [], int $code = Response::HTTP_OK): Response
+    protected function renderWithCode(string $view, array $parameters = [], int $code = Response::HTTP_OK): Response
     {
-        $content = $this->template->render($view, $parameters);
-
-        return new Response($content, $code);
+        $response = $this->render($view, $parameters);
+        $response->setStatusCode($code);
+        return $response;
     }
 
     /**

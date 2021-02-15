@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Controller\Auth;
 
-use App\Application\Command\User\SignIn\SignInCommand;
-use App\Application\Query\Auth\GetToken\GetTokenQuery;
-use App\Domain\User\Exception\InvalidCredentialsException;
+use App\Auth\Application\Command\User\SignIn\SignInCommand;
+use App\Auth\Application\Query\Auth\GetToken\GetTokenQuery;
+use App\Auth\Domain\User\Exception\InvalidCredentialsException;
 use App\UI\Http\Rest\Controller\CommandQueryController;
 use App\UI\Http\Rest\Response\OpenApi;
 use Assert\Assertion;

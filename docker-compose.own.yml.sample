@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+
+  adminer:
+    ports:
+      - "22281:8080"
+
+  nginx:
+    ports:
+      - "22280:80"
+

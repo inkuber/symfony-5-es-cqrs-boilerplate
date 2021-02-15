@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Controller\User;
 
-use App\Application\Command\User\SignUp\SignUpCommand;
+use App\Auth\Application\Command\User\SignUp\SignUpCommand;
 use App\UI\Http\Rest\Controller\CommandController;
 use App\UI\Http\Rest\Response\OpenApi;
 use Assert\Assertion;
@@ -39,7 +39,7 @@ final class SignUpController extends CommandController
      *     @OA\Schema(type="object"),
      *     @OA\JsonContent(
      *         type="object",
-     *         @OA\Property(property="uuid", type="string"),
+     *         @OA\Property(property="id", type="string"),
      *         @OA\Property(property="email", type="string"),
      *         @OA\Property(property="password", type="string")
      *     )
@@ -52,15 +52,15 @@ final class SignUpController extends CommandController
      */
     public function __invoke(Request $request): OpenApi
     {
-        $uuid = $request->get('uuid');
+        $id = $request->get('id');
         $email = $request->get('email');
         $plainPassword = $request->get('password');
 
-        Assertion::notNull($uuid, "Uuid can\'t be null");
+        Assertion::notNull($id, "Id can\'t be null");
         Assertion::notNull($email, "Email can\'t be null");
         Assertion::notNull($plainPassword, "Password can\'t be null");
 
-        $commandRequest = new SignUpCommand($uuid, $email, $plainPassword);
+        $commandRequest = new SignUpCommand($id, $email, $plainPassword);
 
         $this->handle($commandRequest);
 

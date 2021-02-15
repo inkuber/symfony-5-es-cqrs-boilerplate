@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Web\Controller;
 
-use App\Application\Command\User\SignUp\SignUpCommand;
-use App\Domain\User\Exception\EmailAlreadyExistException;
+use App\Auth\Application\Command\User\SignUp\SignUpCommand;
+use App\Auth\Domain\User\Exception\EmailAlreadyExistException;
+use App\Auth\Domain\User\UserId;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
 use InvalidArgumentException;
@@ -31,7 +32,7 @@ class SignUpController extends AbstractRenderController
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    public function get(): Response
+    public function signUp(): Response
     {
         return $this->render('signup/index.html.twig');
     }
@@ -53,19 +54,19 @@ class SignUpController extends AbstractRenderController
     {
         $email = $request->request->get('email');
         $password = $request->request->get('password');
-        $uuid = Uuid::uuid4()->toString();
+        $id = Uuid::uuid4()->toString();
 
         try {
             Assertion::notNull($email, 'Email can\'t be null');
             Assertion::notNull($password, 'Password can\'t be null');
 
-            $this->handle(new SignUpCommand($uuid, $email, $password));
+            $this->handle(new SignUpCommand($id, $email, $password));
 
-            return $this->render('signup/user_created.html.twig', ['uuid' => $uuid, 'email' => $email]);
+            return $this->render('signup/user_created.html.twig', ['id' => $id, 'email' => $email]);
         } catch (EmailAlreadyExistException $exception) {
-            return $this->render('signup/index.html.twig', ['error' => 'Email already exists.'], Response::HTTP_CONFLICT);
+            return $this->renderWithCode('signup/index.html.twig', ['error' => 'Email already exists.'], Response::HTTP_CONFLICT);
         } catch (InvalidArgumentException $exception) {
-            return $this->render('signup/index.html.twig', ['error' => $exception->getMessage()], Response::HTTP_BAD_REQUEST);
+            return $this->renderWithCode('signup/index.html.twig', ['error' => $exception->getMessage()], Response::HTTP_BAD_REQUEST);
         }
     }
 }

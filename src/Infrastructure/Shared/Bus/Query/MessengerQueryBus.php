@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Shared\Bus\Query;
 
-use App\Application\Query\Collection;
-use App\Application\Query\Item;
-use App\Application\Query\QueryBusInterface;
-use App\Application\Query\QueryInterface;
+use App\Shared\Application\Query\Collection;
+use App\Shared\Application\Query\Item;
+use App\Shared\Application\Query\QueryBusInterface;
+use App\Shared\Application\Query\QueryInterface;
 use App\Infrastructure\Shared\Bus\MessageBusExceptionTrait;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\MessageBusInterface;

@@ -2,9 +2,27 @@
 
 {% block body %}
 <div class="container">
-    <div class="columns is-centered">
-        <div class="column is-half">
-            {% include 'components/card.html.twig' with { 'title': 'Hello!', 'text': 'Lorem ipsum hamend awer fiti carem conde moren. Fistro pecadorem de las praderum.'} only %}
+    <div class="columns is-centered is-vcentered">
+        <div class="column is-8">
+            <div class="columns is-centered">
+                <div class="column is-5 card">
+                    <div class="card-content">
+                        <h1 class="title">Login</h1>
+                        {% include 'components/auth/login.html.twig' %}
+                    </div>
+                </div>
+
+                <div class="column is-2 has-text-centered is-size-1 bd-notification is-primary">
+                    OR
+                </div>
+
+                <div class="column is-5 card">
+                    <div class="card-content">
+                        <h1 class="title">Sign up</h1>
+                        {% include 'components/auth/signup.html.twig' %}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
