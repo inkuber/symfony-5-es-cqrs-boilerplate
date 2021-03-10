@@ -64,7 +64,6 @@ class User extends AbstractAggregateRoot implements AggregateRoot
     public function changeEmail(
         UniqueEmail $email
     ): void {
-        $this->credentials->email = $event->getPayload()->email;
         $this->apply(new UserEmailChanged($this->id, $email, $this->updatedAt));
     }
 
@@ -78,6 +77,14 @@ class User extends AbstractAggregateRoot implements AggregateRoot
         }
 
         $this->apply(new UserSignedIn($this->id, DateTime::now()));
+    }
+
+    /**
+     * Events
+     */
+    public function applyUserEmailChanged(UserEmailChanged $event):void
+    {
+        $this->credentials->email = $event->email();
     }
 
     /**

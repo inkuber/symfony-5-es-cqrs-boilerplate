@@ -67,6 +67,7 @@ services:
 
     App\Auth\Domain\User\Repository\UserRepositoryInterface:
       '@App\Auth\Infrastructure\User\Repository\UserWriteMysqlRepository'
+      #'@App\Auth\Infrastructure\User\Repository\UserWriteEventRepository'
 
     ### Event Store
 

@@ -50,4 +50,9 @@ final class UserEmailChanged implements EventInterface, Serializable
     {
         return $this->id;
     }
+
+    public function email(): UniqueEmail
+    {
+        return $this->email;
+    }
 }
