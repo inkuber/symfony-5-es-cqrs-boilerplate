@@ -43,6 +43,14 @@ services:
   redis:
     image: redis
 
+  camunda:
+    image: camunda/camunda-bpm-platform
+    environment:
+      - DB_DRIVER=com.mysql.cj.jdbc.Driver
+      - DB_URL=jdbc:mysql://mysql:3306/api
+      - DB_USERNAME=root
+      - DB_PASSWORD=api
+
   start_dependencies:
     image: dadarek/wait-for-dependencies
     depends_on:

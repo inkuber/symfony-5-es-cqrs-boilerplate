@@ -7,9 +7,9 @@ namespace App\Auth\Infrastructure\User\Repository;
 use App\Auth\Domain\User\Repository\UserRepositoryInterface;
 use App\Auth\Domain\User\User;
 use App\Auth\Domain\User\UserId;
-use App\Infrastructure\Shared\Persistence\Repository\WriteMysqlRepository;
+use App\Infrastructure\Shared\Persistence\Repository\WriteDoctrineRepository;
 
-final class UserWriteMysqlRepository extends WriteMysqlRepository implements
+final class UserWriteDoctrineRepository extends WriteDoctrineRepository implements
     UserRepositoryInterface
 {
     protected function setEntityManager(): void

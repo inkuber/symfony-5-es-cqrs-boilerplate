@@ -3,9 +3,9 @@ namespace App\Infrastructure\Event\Repository;
 
 use App\Shared\Application\Event\EventInterface;
 use App\Infrastructure\Event\Event;
-use App\Infrastructure\Shared\Persistence\Repository\ProjectionMysqlRepository;
+use App\Infrastructure\Shared\Persistence\Repository\ProjectionDoctrineRepository;
 
-class EventMysqlRepository extends ProjectionMysqlRepository
+class EventDoctrineRepository extends ProjectionDoctrineRepository
 {
     protected function setEntityManager(): void
     {

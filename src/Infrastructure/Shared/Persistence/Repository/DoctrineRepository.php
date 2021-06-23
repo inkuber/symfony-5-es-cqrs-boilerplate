@@ -12,7 +12,7 @@ use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\QueryBuilder;
 use Throwable;
 
-abstract class MysqlRepository
+abstract class DoctrineRepository
 {
     protected EntityRepository $repository;
 

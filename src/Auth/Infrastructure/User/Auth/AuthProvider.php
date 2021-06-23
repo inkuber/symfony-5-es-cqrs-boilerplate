@@ -6,7 +6,7 @@ namespace App\Auth\Infrastructure\User\Auth;
 
 use App\Auth\Domain\User\ValueObject\Email;
 use App\Infrastructure\Shared\Persistence\ReadModel\Exception\NotFoundException;
-use App\Auth\Infrastructure\User\Repository\UserMysqlReadRepository;
+use App\Auth\Infrastructure\User\Repository\UserDoctrineReadRepository;
 use Assert\AssertionFailedException;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -15,9 +15,9 @@ use App\Auth\Infrastructure\User\Auth\Auth;
 
 final class AuthProvider implements UserProviderInterface
 {
-    private UserMysqlReadRepository $userReadModelRepository;
+    private UserDoctrineReadRepository $userReadModelRepository;
 
-    public function __construct(UserMysqlReadRepository $userReadModelRepository)
+    public function __construct(UserDoctrineReadRepository $userReadModelRepository)
     {
         $this->userReadModelRepository = $userReadModelRepository;
     }

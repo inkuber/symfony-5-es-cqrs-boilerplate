@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Controller\Healthz;
 
-use App\Infrastructure\Shared\Persistence\Repository\EntitylessMysqlRepository;
+use App\Infrastructure\Shared\Persistence\Repository\EntitylessDoctrineRepository;
 use App\UI\Http\Rest\Response\OpenApi;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,10 +12,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class HealthzController
 {
-    private EntitylessMysqlRepository $mysqlRepository;
+    private EntitylessDoctrineRepository $mysqlRepository;
 
     public function __construct(
-        EntitylessMysqlRepository $mysqlRepository
+        EntitylessDoctrineRepository $mysqlRepository
     ) {
         $this->mysqlReadRepository = $mysqlRepository;
     }

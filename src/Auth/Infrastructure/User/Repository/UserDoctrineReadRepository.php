@@ -10,14 +10,14 @@ use App\Auth\Domain\User\Repository\GetUserByEmailInterface;
 use App\Auth\Domain\User\UserId;
 use App\Auth\Domain\User\ValueObject\Email;
 use App\Infrastructure\Shared\Persistence\ReadModel\Exception\NotFoundException;
-use App\Infrastructure\Shared\Persistence\Repository\ReadMysqlRepository;
+use App\Infrastructure\Shared\Persistence\Repository\ReadDoctrineRepository;
 use App\Auth\Domain\User\User;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\QueryBuilder;
 
-final class UserMysqlReadRepository extends ReadMysqlRepository implements
+final class UserDoctrineReadRepository extends ReadDoctrineRepository implements
     CheckUserByEmailInterface,
     GetUserCredentialsByEmailInterface,
     GetUserByEmailInterface

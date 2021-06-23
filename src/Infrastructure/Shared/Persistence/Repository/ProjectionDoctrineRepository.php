@@ -6,7 +6,7 @@ namespace App\Infrastructure\Shared\Persistence\Repository;
 
 use Doctrine\ORM\EntityManagerInterface;
 
-abstract class ProjectionMysqlRepository extends MysqlRepository
+abstract class ProjectionDoctrineRepository extends DoctrineRepository
 {
     public function __construct(EntityManagerInterface $entityManager)
     {

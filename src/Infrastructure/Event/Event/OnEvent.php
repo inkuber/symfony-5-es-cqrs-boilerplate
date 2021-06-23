@@ -5,14 +5,14 @@ namespace App\Infrastructure\Event\Event;
 
 use App\Shared\Application\Event\EventHandlerInterface;
 use App\Shared\Application\Event\EventInterface;
-use App\Infrastructure\Event\Repository\EventMysqlRepository;
+use App\Infrastructure\Event\Repository\EventDoctrineRepository;
 
 class OnEvent implements EventHandlerInterface
 {
-    private EventMysqlRepository $repository;
+    private EventDoctrineRepository $repository;
 
     public function __construct(
-        EventMysqlRepository $repository
+        EventDoctrineRepository $repository
     ) {
         $this->repository = $repository;
     }

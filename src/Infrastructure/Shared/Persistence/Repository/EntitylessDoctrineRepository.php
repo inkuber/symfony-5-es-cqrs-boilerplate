@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Shared\Persistence\Repository;
 
-class EntitylessMysqlRepository extends MysqlRepository
+class EntitylessDoctrineRepository extends DoctrineRepository
 {
     protected function setEntityManager(): void
     {

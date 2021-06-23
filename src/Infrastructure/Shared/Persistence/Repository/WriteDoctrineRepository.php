@@ -7,7 +7,7 @@ namespace App\Infrastructure\Shared\Persistence\Repository;
 use App\Shared\Application\Event\EventBusInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
-abstract class WriteMysqlRepository extends MysqlRepository
+abstract class WriteDoctrineRepository extends DoctrineRepository
 {
     private EventBusInterface $eventBus;
 
